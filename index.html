@@ -3,24 +3,447 @@
 <head>
   <meta charset="UTF-8">
   <title>Finance Web Security · GDG on Campus TUM</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Web x Cybersecurity joint project: security plan for a student finance web-application prototype.">
+  <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="description" content="Web x Cybersecurity joint project at GDG on Campus TUM: security plan, templates, checklists and test cases for a student finance web-app prototype.">
+  <meta property="og:title" content="Finance Web Security · GDG on Campus TUM">
+  <meta property="og:description" content="Plan it. Build it. Break it. Fix it. Security plan for a student finance web-app prototype.">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%9B%A1%EF%B8%8F%3C/text%3E%3C/svg%3E">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsify@4/lib/themes/vue.css">
+  <script>
+    // Apply saved or system theme before first paint
+    (function () {
+      var t = null;
+      try { t = localStorage.getItem('fws-theme'); } catch (e) {}
+      if (!t) t = (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) ? 'dark' : 'light';
+      document.documentElement.setAttribute('data-theme', t);
+    })();
+  </script>
+  <style>
+    :root {
+      --theme-color: #4285F4;
+      --blue: #4285F4; --red: #EA4335; --yellow: #FBBC04; --green: #34A853; --purple: #A142F4;
+      --bg: #ffffff; --fg: #2c3e50; --muted: #6b7a8c; --card: #f6f8fb; --border: #e3e8ef; --codebg: #f3f5f9;
+    }
+    [data-theme="dark"] {
+      --bg: #12161c; --fg: #dde3ea; --muted: #9aa7b6; --card: #1a212a; --border: #2a3440; --codebg: #1a212a;
+      color-scheme: dark;
+    }
+    html { scroll-behavior: smooth; }
+    body, .markdown-section, .sidebar, .content { background: var(--bg) !important; color: var(--fg); }
+    .markdown-section { max-width: 920px; }
+    .markdown-section h1, .markdown-section h2, .markdown-section h3, .markdown-section h4, .markdown-section strong { color: var(--fg); }
+    .markdown-section h2 { border-bottom: 1px solid var(--border); padding-bottom: .3em; margin-top: 2.2em; }
+    .markdown-section a { color: var(--blue); }
+    .markdown-section hr { border-bottom: 1px solid var(--border); }
+    .markdown-section code, .markdown-section pre { background: var(--codebg) !important; color: var(--fg); }
+    .markdown-section pre > code { background: transparent !important; }
+    .markdown-section table { display: table; width: 100%; border-collapse: collapse; }
+    .markdown-section th, .markdown-section td { border: 1px solid var(--border); }
+    .markdown-section th { background: var(--card); color: var(--fg); }
+    .markdown-section tr { background: var(--bg) !important; border-top: 1px solid var(--border); }
+    .markdown-section tr:nth-child(2n) { background: var(--card) !important; }
+    .markdown-section tbody tr:hover { background: rgba(66,133,244,.07) !important; }
+    .markdown-section p.tip, .markdown-section p.warn { background: var(--card); color: var(--fg); }
+
+    /* Sidebar */
+    .sidebar { border-right: 1px solid var(--border); }
+    .sidebar ul li a { color: var(--fg); }
+    .sidebar ul li a:hover { color: var(--blue); text-decoration: none; }
+    .sidebar ul li.active > a { color: var(--blue); border-right: 3px solid var(--blue); font-weight: 600; }
+    .sidebar-nav > ul > li > strong, .sidebar-nav > ul > li > p { color: var(--muted); font-size: .78rem; text-transform: uppercase; letter-spacing: .05em; }
+    .app-name-link { color: var(--fg) !important; }
+    .sidebar-toggle { background: transparent !important; }
+    .sidebar-toggle span { background-color: var(--fg); }
+    .sidebar input[type="search"], .search input { background: var(--card) !important; color: var(--fg) !important; border: 1px solid var(--border) !important; border-radius: 8px; }
+    .search .results-panel, .search .matching-post { background: transparent; }
+    .search .matching-post a, .search .matching-post h2 { color: var(--fg); }
+    .search a:hover { color: var(--blue); }
+    .search .kbd { position: absolute; right: 22px; top: 22px; font-size: 11px; border: 1px solid var(--border); border-radius: 4px; padding: 0 5px; color: var(--muted); pointer-events: none; }
+
+    /* Navbar */
+    nav.app-nav { background: color-mix(in srgb, var(--bg) 90%, transparent); }
+    nav.app-nav li a { color: var(--fg); }
+    nav.app-nav li a:hover, nav.app-nav li.active > a { color: var(--blue); border-bottom-color: var(--blue); }
+    nav.app-nav li ul { background: var(--bg); border: 1px solid var(--border); border-radius: 8px; }
+    @media (max-width: 768px) { nav.app-nav { display: none; } }
+
+    /* Hero (home h1 + subtitle) */
+    .home-hero h1 { font-size: 2.1rem; margin-bottom: .1em; }
+    .home-hero h3 { color: var(--muted); font-weight: 500; margin-top: 0; }
+    .home-hero img { margin: 2px; }
+
+    /* Callouts */
+    .callout { border: 1px solid var(--border); border-left: 5px solid var(--blue); background: var(--card); border-radius: 10px; padding: 10px 16px; margin: 1.1em 0; color: var(--fg); }
+    .callout p { margin: .4em 0; }
+    .callout-title { font-weight: 700; margin-bottom: 2px; }
+    .callout.note { border-left-color: var(--blue); }
+    .callout.tip { border-left-color: var(--green); }
+    .callout.important { border-left-color: var(--purple); }
+    .callout.warning { border-left-color: var(--yellow); }
+    .callout.caution { border-left-color: var(--red); }
+
+    /* Task lists with saved progress */
+    .markdown-section li.task-list-item { list-style: none; margin-left: -1.2em; cursor: pointer; padding: 2px 4px; border-radius: 6px; }
+    .markdown-section li.task-list-item:hover { background: rgba(66,133,244,.08); }
+    .markdown-section li.task-list-item input { margin-right: .5em; cursor: pointer; accent-color: var(--green); transform: scale(1.15); }
+    .markdown-section li.task-list-item.done { color: var(--muted); }
+    .markdown-section li.task-list-item.done > :not(input) { text-decoration: line-through; text-decoration-color: var(--muted); }
+    .progress-box { border: 1px solid var(--border); background: var(--card); border-radius: 10px; padding: 10px 14px; margin: 14px 0 20px; font-size: .92rem; }
+    .progress-top { display: flex; justify-content: space-between; align-items: center; gap: 10px; }
+    .progress-track { height: 8px; background: var(--border); border-radius: 99px; overflow: hidden; margin-top: 8px; }
+    .progress-fill { height: 100%; width: 0; background: linear-gradient(90deg, var(--blue), var(--green)); transition: width .25s ease; }
+    .progress-box button { border: 1px solid var(--border); background: var(--bg); color: var(--muted); border-radius: 6px; padding: 2px 9px; cursor: pointer; font-size: .8rem; }
+    .progress-box button:hover { color: var(--red); border-color: var(--red); }
+
+    /* Phase explorer */
+    .explorer { border: 1px solid var(--border); background: var(--card); border-radius: 14px; padding: 16px; margin: 18px 0 22px; }
+    .explorer h4 { margin: 0 0 10px; }
+    .chips { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 12px; }
+    .chip { border: 2px solid var(--c); background: var(--bg); color: var(--fg); border-radius: 99px; padding: 5px 13px; cursor: pointer; font-size: .85rem; font-weight: 600; }
+    .chip:hover { background: color-mix(in srgb, var(--c) 18%, var(--bg)); }
+    .chip.on { background: var(--c); color: #111; }
+    .chip.on.dark-text { color: #fff; }
+    .phase-card { border-left: 5px solid var(--c); padding: 4px 0 4px 14px; }
+    .phase-card .stage { font-size: .75rem; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); }
+    .phase-card h5 { margin: .2em 0 .5em; font-size: 1.05rem; }
+    .phase-card .row { margin: .4em 0; }
+    .phase-links { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
+    .phase-links a { background: var(--bg); border: 1px solid var(--border); border-radius: 8px; padding: 4px 10px; font-size: .85rem; text-decoration: none !important; }
+    .phase-links a:hover { border-color: var(--blue); }
+    .phase-nav { display: flex; justify-content: space-between; margin-top: 12px; }
+    .phase-nav button { border: 1px solid var(--border); background: var(--bg); color: var(--fg); border-radius: 8px; padding: 4px 12px; cursor: pointer; }
+    .phase-nav button:disabled { opacity: .4; cursor: default; }
+
+    /* Quick finder */
+    .finder { width: 100%; box-sizing: border-box; padding: 10px 14px; border-radius: 10px; border: 1px solid var(--border); background: var(--card); color: var(--fg); font-size: .95rem; margin: 6px 0 10px; }
+    .finder:focus { outline: 2px solid var(--blue); }
+    .finder-empty { color: var(--muted); font-style: italic; display: none; }
+
+    /* Page meta + floating buttons */
+    .page-meta { margin-top: 3em; padding-top: 14px; border-top: 1px solid var(--border); font-size: .85rem; color: var(--muted); display: flex; flex-wrap: wrap; gap: 16px; }
+    .fab-wrap { position: fixed; right: 18px; bottom: 18px; display: flex; flex-direction: column; gap: 8px; z-index: 50; }
+    .fab { width: 42px; height: 42px; border-radius: 50%; border: 1px solid var(--border); background: var(--card); color: var(--fg); cursor: pointer; font-size: 18px; box-shadow: 0 2px 8px rgba(0,0,0,.15); }
+    .fab:hover { border-color: var(--blue); }
+    .fab.hidden { display: none; }
+
+    /* Pagination */
+    .docsify-pagination-container { border-top: 1px solid var(--border) !important; }
+    .pagination-item-title, .pagination-item-label { color: var(--fg); }
+    .pagination-item a:hover .pagination-item-title { color: var(--blue); }
+
+    .mermaid { text-align: center; margin: 1.2em 0; }
+    .mermaid svg { max-width: 100%; height: auto; }
+    .markdown-section img { background: transparent; }
+  </style>
 </head>
 <body>
-  <div id="app">Loading…</div>
+  <div id="app">Loading Finance Web Security…</div>
+  <noscript>This site needs JavaScript. You can read everything on GitHub instead: https://github.com/GDG-TUM/Finance-Web-Security-GDG-on-Campus-TUM</noscript>
+
+  <script>
+    (function () {
+      var REPO = 'GDG-TUM/Finance-Web-Security-GDG-on-Campus-TUM';
+
+      var store = {
+        get: function (k) { try { return localStorage.getItem(k); } catch (e) { return null; } },
+        set: function (k, v) { try { localStorage.setItem(k, v); } catch (e) {} },
+        del: function (k) { try { localStorage.removeItem(k); } catch (e) {} }
+      };
+
+      /* ---------- Phase explorer data (mirrors roadmap/week-by-week.md) ---------- */
+      var PHASES = [
+        { label: 'Weeks 5–6', stage: 'Plan', color: '#FBBC04', darkText: false,
+          actions: 'Meet the Web lead. Confirm features, roles, data, technology and deployment plan. Identify key risks.',
+          deliverable: 'Security brief and threat list',
+          links: [['🧾 Security brief', '/templates/security-brief'], ['⚠️ Threat list', '/templates/threat-list'], ['🤝 Coordination guide', '/plan/06-coordination'], ['📌 Open items', '/OPEN-ITEMS']] },
+        { label: 'Week 7', stage: 'Plan', color: '#FBBC04', darkText: false,
+          actions: 'Agree testing boundaries. Create the checklist, test-plan template and vulnerability register.',
+          deliverable: 'Security workflow and templates',
+          links: [['⚖️ Rules', '/ETHICS-AND-RULES'], ['📋 Test plan', '/templates/test-plan'], ['🧾 Vulnerability register', '/templates/vulnerability-register'], ['✅ Requirements checklist', '/checklists/requirements-checklist']] },
+        { label: 'Weeks 8–9', stage: 'Prepare', color: '#4285F4', darkText: true,
+          actions: 'Study the relevant OWASP risks. Review new features. Prepare test cases.',
+          deliverable: 'Prioritised test cases and review notes',
+          links: [['🧪 Test cases', '/test-cases/README'], ['📘 Learning priorities', '/plan/04-learning-priorities'], ['📚 Starter resources', '/plan/05-starter-resources']] },
+        { label: 'Week 10', stage: 'Test', color: '#EA4335', darkText: true,
+          actions: 'Test our own development version with permission: access control, input handling, sessions and transaction logic as applicable.',
+          deliverable: 'Initial findings and remediation tasks',
+          links: [['🚦 Before testing', '/checklists/pre-testing'], ['🔍 Finding report', '/templates/finding-report'], ['🧾 Vulnerability register', '/templates/vulnerability-register'], ['📂 Findings', '/findings/README']] },
+        { label: 'Weeks 11–12', stage: 'Fix and retest', color: '#34A853', darkText: true,
+          actions: 'Work with developers to fix findings. Retest. Complete security notes and report.',
+          deliverable: 'Retest log and draft report',
+          links: [['🔁 Retest log', '/templates/retest-log'], ['📄 Reports', '/reports/README'], ['📂 Findings', '/findings/README']] },
+        { label: 'Week 13', stage: 'Showcase', color: '#A142F4', darkText: true,
+          actions: 'Demonstrate the prototype, safely show a finding and its fix, and explain remaining limitations.',
+          deliverable: 'Security demo and final report',
+          links: [['🎤 Before the showcase', '/checklists/pre-showcase'], ['🔁 Retest log', '/templates/retest-log'], ['📄 Reports', '/reports/README'], ['🎯 Definition of success', '/plan/07-definition-of-success']] }
+      ];
+
+      var CALLOUT_TITLES = { note: 'ℹ️ Note', tip: '💡 Tip', important: '❗ Important', warning: '⚠️ Warning', caution: '🛑 Caution' };
+
+      /* ---------- Helpers ---------- */
+      function qsa(sel, root) { return Array.prototype.slice.call((root || document).querySelectorAll(sel)); }
+      function isHome(vm) { return vm.route.path === '/' || vm.route.path === '/README'; }
+      function currentTheme() { return document.documentElement.getAttribute('data-theme') || 'light'; }
+
+      /* ---------- Callouts: turn > [!NOTE] into styled boxes ---------- */
+      function callouts() {
+        qsa('.markdown-section blockquote').forEach(function (bq) {
+          var p = bq.querySelector('p');
+          if (!p) return;
+          var m = p.innerHTML.match(/^\s*\[!(NOTE|TIP|IMPORTANT|WARNING|CAUTION)\]\s*(<br\s*\/?>)?\s*/i);
+          if (!m) return;
+          var type = m[1].toLowerCase();
+          p.innerHTML = p.innerHTML.slice(m[0].length);
+          bq.className = 'callout ' + type;
+          var title = document.createElement('div');
+          title.className = 'callout-title';
+          title.textContent = CALLOUT_TITLES[type];
+          bq.insertBefore(title, bq.firstChild);
+        });
+      }
+
+      /* ---------- Mermaid ---------- */
+      function renderMermaid() {
+        if (!window.mermaid) return;
+        qsa('.markdown-section pre[data-lang="mermaid"]').forEach(function (pre) {
+          var div = document.createElement('div');
+          div.className = 'mermaid';
+          div.setAttribute('data-src', pre.textContent);
+          div.textContent = pre.textContent;
+          pre.parentNode.replaceChild(div, pre);
+        });
+        var nodes = qsa('.mermaid[data-src]');
+        if (!nodes.length) return;
+        nodes.forEach(function (n) { n.removeAttribute('data-processed'); n.textContent = n.getAttribute('data-src'); });
+        try {
+          window.mermaid.initialize({ startOnLoad: false, theme: currentTheme() === 'dark' ? 'dark' : 'default', securityLevel: 'loose' });
+          var r = window.mermaid.run({ nodes: nodes });
+          if (r && r.catch) r.catch(function () {});
+        } catch (e) {}
+      }
+
+      /* ---------- Checkbox tasks with saved progress ---------- */
+      function tasks(vm) {
+        var boxes = qsa('.markdown-section input[type="checkbox"]');
+        if (!boxes.length) return;
+        var base = 'fws:' + vm.route.path + ':';
+        var box = document.createElement('div');
+        box.className = 'progress-box';
+        box.innerHTML = '<div class="progress-top"><span class="progress-label"></span><button type="button" title="Clear ticks on this page">Reset</button></div><div class="progress-track"><div class="progress-fill"></div></div>';
+        var h1 = document.querySelector('.markdown-section h1');
+        var anchor = h1 ? h1.nextElementSibling || h1 : null;
+        if (h1 && h1.parentNode) h1.parentNode.insertBefore(box, anchor);
+
+        function refresh() {
+          var done = boxes.filter(function (b) { return b.checked; }).length;
+          box.querySelector('.progress-label').textContent = '✅ ' + done + ' of ' + boxes.length + ' done · saved in this browser';
+          box.querySelector('.progress-fill').style.width = Math.round(done / boxes.length * 100) + '%';
+          boxes.forEach(function (b) { var li = b.closest('li'); if (li) li.classList.toggle('done', b.checked); });
+        }
+        boxes.forEach(function (b, i) {
+          b.disabled = false;
+          b.checked = store.get(base + i) === '1';
+          b.addEventListener('change', function () { store.set(base + i, b.checked ? '1' : '0'); refresh(); });
+          var li = b.closest('li');
+          if (li) li.addEventListener('click', function (e) {
+            if (e.target === b || e.target.closest('a')) return;
+            b.checked = !b.checked;
+            b.dispatchEvent(new Event('change'));
+          });
+        });
+        box.querySelector('button').addEventListener('click', function () {
+          boxes.forEach(function (b, i) { b.checked = false; store.del(base + i); });
+          refresh();
+        });
+        refresh();
+      }
+
+      /* ---------- Home: phase explorer ---------- */
+      function explorer() {
+        var h2 = qsa('.markdown-section h2').filter(function (h) { return /Week-by-week calendar/i.test(h.textContent); })[0];
+        if (!h2) return;
+        var table = h2.nextElementSibling;
+        while (table && table.tagName !== 'TABLE') table = table.nextElementSibling;
+        var wrap = document.createElement('div');
+        wrap.className = 'explorer';
+        wrap.innerHTML = '<h4>🔎 Explore a phase</h4><div class="chips"></div><div class="phase-card"></div><div class="phase-nav"><button type="button" data-d="-1">← Previous</button><button type="button" data-d="1">Next →</button></div>';
+        var chips = wrap.querySelector('.chips'), card = wrap.querySelector('.phase-card');
+        var idx = 0;
+
+        function show(i) {
+          idx = i;
+          var p = PHASES[i];
+          wrap.style.setProperty('--c', p.color);
+          qsa('.chip', chips).forEach(function (c, j) { c.classList.toggle('on', j === i); });
+          card.style.setProperty('--c', p.color);
+          card.innerHTML = '<div class="stage">' + p.stage + '</div><h5>' + p.label + '</h5>' +
+            '<div class="row"><strong>What we do:</strong> ' + p.actions + '</div>' +
+            '<div class="row"><strong>Deliverable:</strong> ' + p.deliverable + '</div>' +
+            '<div class="phase-links">' + p.links.map(function (l) { return '<a href="#' + l[1] + '">' + l[0] + '</a>'; }).join('') + '</div>';
+          wrap.querySelector('[data-d="-1"]').disabled = i === 0;
+          wrap.querySelector('[data-d="1"]').disabled = i === PHASES.length - 1;
+        }
+        PHASES.forEach(function (p, i) {
+          var b = document.createElement('button');
+          b.type = 'button'; b.className = 'chip' + (p.darkText ? ' dark-text' : '');
+          b.style.setProperty('--c', p.color);
+          b.textContent = p.label;
+          b.addEventListener('click', function () { show(i); });
+          chips.appendChild(b);
+        });
+        wrap.addEventListener('click', function (e) {
+          var d = e.target.getAttribute && e.target.getAttribute('data-d');
+          if (d) show(Math.max(0, Math.min(PHASES.length - 1, idx + parseInt(d, 10))));
+        });
+        if (table && table.parentNode) table.parentNode.insertBefore(wrap, table); else h2.parentNode.insertBefore(wrap, h2.nextSibling);
+        show(0);
+      }
+
+      /* ---------- Home: quick finder for the "I want to..." table ---------- */
+      function finder() {
+        var h3 = qsa('.markdown-section h3').filter(function (h) { return /jump straight/i.test(h.textContent); })[0];
+        if (!h3) return;
+        var table = h3.nextElementSibling;
+        while (table && table.tagName !== 'TABLE') table = table.nextElementSibling;
+        if (!table) return;
+        var input = document.createElement('input');
+        input.type = 'search'; input.className = 'finder';
+        input.placeholder = '🔎 Type what you want to do: test, report, checklist, rules, showcase…';
+        var empty = document.createElement('div');
+        empty.className = 'finder-empty'; empty.textContent = 'Nothing matches. Try the search box in the sidebar (press /).';
+        table.parentNode.insertBefore(input, table);
+        table.parentNode.insertBefore(empty, table.nextSibling);
+        input.addEventListener('input', function () {
+          var q = input.value.trim().toLowerCase(), shown = 0;
+          qsa('tbody tr', table).forEach(function (tr) {
+            var hit = !q || tr.textContent.toLowerCase().indexOf(q) !== -1;
+            tr.style.display = hit ? '' : 'none';
+            if (hit) shown++;
+          });
+          empty.style.display = shown ? 'none' : 'block';
+        });
+      }
+
+      /* ---------- Hero styling on home ---------- */
+      function hero() {
+        var sec = document.querySelector('.markdown-section');
+        if (!sec) return;
+        var h1 = sec.querySelector('h1');
+        if (!h1) return;
+        var nodes = [h1], n = h1.nextElementSibling;
+        while (n && nodes.length < 4 && n.tagName !== 'HR' && n.tagName !== 'BLOCKQUOTE') { nodes.push(n); n = n.nextElementSibling; }
+        nodes.forEach(function (el) { el.classList.add('home-hero'); });
+      }
+
+      /* ---------- Edit / report links ---------- */
+      function pageMeta(vm) {
+        var sec = document.querySelector('.markdown-section');
+        if (!sec || vm.route.path === '/404') return;
+        var file = vm.route.file || 'README.md';
+        var div = document.createElement('div');
+        div.className = 'page-meta';
+        div.innerHTML =
+          '<a href="https://github.com/' + REPO + '/edit/main/' + file + '" target="_blank" rel="noopener">✏️ Edit this page on GitHub</a>' +
+          '<a href="https://github.com/' + REPO + '/issues/new?title=' + encodeURIComponent('[Docs] ' + file) + '" target="_blank" rel="noopener">🐞 Report a problem with this page</a>' +
+          '<a href="https://github.com/' + REPO + '" target="_blank" rel="noopener">📦 View the repository</a>';
+        sec.appendChild(div);
+      }
+
+      /* ---------- Plugin ---------- */
+      window.gdgPlugin = function (hook, vm) {
+        hook.doneEach(function () {
+          callouts();
+          renderMermaid();
+          tasks(vm);
+          if (isHome(vm)) { hero(); explorer(); finder(); }
+          pageMeta(vm);
+        });
+      };
+
+      /* ---------- One-time UI: floating buttons, shortcuts, in-page anchors ---------- */
+      function setTheme(t) {
+        document.documentElement.setAttribute('data-theme', t);
+        store.set('fws-theme', t);
+        var b = document.getElementById('fab-theme');
+        if (b) b.textContent = t === 'dark' ? '☀️' : '🌙';
+        renderMermaid();
+      }
+      function initChrome() {
+        var wrap = document.createElement('div');
+        wrap.className = 'fab-wrap';
+        wrap.innerHTML = '<button class="fab hidden" id="fab-top" title="Back to top" aria-label="Back to top">↑</button><button class="fab" id="fab-theme" title="Toggle dark mode" aria-label="Toggle dark mode"></button>';
+        document.body.appendChild(wrap);
+        document.getElementById('fab-theme').textContent = currentTheme() === 'dark' ? '☀️' : '🌙';
+        document.getElementById('fab-theme').addEventListener('click', function () { setTheme(currentTheme() === 'dark' ? 'light' : 'dark'); });
+        var top = document.getElementById('fab-top');
+        top.addEventListener('click', function () { window.scrollTo({ top: 0, behavior: 'smooth' }); });
+        window.addEventListener('scroll', function () { top.classList.toggle('hidden', window.scrollY < 400); });
+
+        // "/" focuses search
+        document.addEventListener('keydown', function (e) {
+          var t = e.target, typing = t && (t.tagName === 'INPUT' || t.tagName === 'TEXTAREA' || t.isContentEditable);
+          if (e.key === '/' && !typing && !e.ctrlKey && !e.metaKey) {
+            var s = document.querySelector('.sidebar input[type="search"]');
+            if (s) { e.preventDefault(); s.focus(); }
+          }
+        });
+
+        // In-page anchors (#start, #goals, "#" for back to top) that Docsify would otherwise treat as routes
+        document.addEventListener('click', function (e) {
+          var a = e.target.closest && e.target.closest('a');
+          if (!a) return;
+          var h = a.getAttribute('href');
+          if (h === '#') { e.preventDefault(); e.stopPropagation(); window.scrollTo({ top: 0, behavior: 'smooth' }); return; }
+          if (h && h.charAt(0) === '#' && h.indexOf('#/') !== 0) {
+            var id = decodeURIComponent(h.slice(1));
+            var el = document.getElementById(id) || document.querySelector('[data-id="' + id + '"]');
+            if (el) { e.preventDefault(); e.stopPropagation(); el.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+          }
+        }, true);
+      }
+      if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', initChrome); else initChrome();
+    })();
+  </script>
+
   <script>
     window.$docsify = {
       name: 'Finance Web Security',
       repo: 'https://github.com/GDG-TUM/Finance-Web-Security-GDG-on-Campus-TUM',
-      loadSidebar: true,
-      subMaxLevel: 2,
-      auto2top: true,
       homepage: 'README.md',
-      search: 'auto'
+      loadSidebar: true,
+      loadNavbar: true,
+      mergeNavbar: true,
+      notFoundPage: true,
+      subMaxLevel: 2,
+      maxLevel: 3,
+      auto2top: true,
+      externalLinkTarget: '_blank',
+      externalLinkRel: 'noopener noreferrer',
+      // One sidebar and navbar for every page, including pages inside folders
+      alias: {
+        '/.*/_sidebar.md': '/_sidebar.md',
+        '/.*/_navbar.md': '/_navbar.md'
+      },
+      search: {
+        paths: 'auto',
+        placeholder: 'Search plan, templates, test cases…  ( / )',
+        noData: 'No results. Try another word.',
+        depth: 3,
+        maxAge: 86400000
+      },
+      pagination: {
+        previousText: 'Previous',
+        nextText: 'Next',
+        crossChapter: true,
+        crossChapterText: true
+      },
+      plugins: [window.gdgPlugin]
     };
   </script>
   <script src="https://cdn.jsdelivr.net/npm/docsify@4"></script>
   <script src="https://cdn.jsdelivr.net/npm/docsify/lib/plugins/search.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/docsify-pagination/dist/docsify-pagination.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/docsify-copy-code@2"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
 </body>
 </html>
