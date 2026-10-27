@@ -1,14 +1,14 @@
-# 🛡️ Finance Web Security | GDG on Campus TUM
+# 🛡️ CyberSecurity x Web Development | GDG on Campus TUM
 
 ### Plan it. Build it. Break it. Fix it.
 
 [![Project](https://img.shields.io/badge/project-Web%20%C3%97%20Cybersecurity-4285F4?style=for-the-badge)](#) [![Timeline](https://img.shields.io/badge/timeline-weeks%205--13-EA4335?style=for-the-badge)](#) [![Data](https://img.shields.io/badge/data-fictional%20only-34A853?style=for-the-badge)](#) [![Testing](https://img.shields.io/badge/testing-own%20prototype%20only-FBBC04?style=for-the-badge&labelColor=555)](#)
 
-[🚀 Getting Started](GETTING-STARTED.md) · [⚖️ Rules](ETHICS-AND-RULES.md) · [🗓️ Roadmap](roadmap/week-by-week.md) · [📘 The Plan](plan/01-project-goal.md) · [🧪 Test Cases](test-cases/README.md) · [🧾 Templates](templates/vulnerability-register.md) · [✅ Checklists](checklists/requirements-checklist.md) · [🔍 Findings](findings/README.md) · [📄 Reports](reports/README.md) · [👥 Members](members/README.md) · [📌 Open Items](OPEN-ITEMS.md) · [❓ FAQ](FAQ.md)
+[Getting Started](GETTING-STARTED.md) · [Rules](ETHICS-AND-RULES.md) · [Roadmap](roadmap/week-by-week.md) · [The Plan](plan/01-project-goal.md) · [Test Cases](test-cases/README.md) · [Templates](templates/vulnerability-register.md) · [ Checklists](checklists/requirements-checklist.md) · [Findings](findings/README.md) · [Reports](reports/README.md) · [ Members](members/README.md) · [Open Items](OPEN-ITEMS.md) · [ FAQ](FAQ.md)
 
 * * *
 
-> **Cybersecurity Track Lead:** Kimberly ([kimmy-sec](https://github.com/kimmy-sec)) · **Web Track Lead:** *[TO CONFIRM]* · **Chairperson:** *[TO CONFIRM]* · **Weekly check-in:** *[TO CONFIRM] day, time, venue* · **Channel:** *add group link*
+> **Cybersecurity Track Lead:** Kimberly ([kimmy-sec](https://github.com/kimmy-sec)) · **Web Track Lead:** *([Sam-Ryan](https://github.com/Ryanking254))* · **
 
 This is the joint **Web × Cybersecurity project** of GDG on Campus TUM. The Web track builds a **student finance web-application prototype**, inspired by the functions of a university finance portal. The Cybersecurity track makes sure security is part of the work **from planning through testing**: defining requirements, assessing risks, coordinating authorised testing, and documenting fixes and limitations.
 
@@ -25,13 +25,13 @@ It is the **Build stage** project of the [Cybersecurity Track](https://github.co
 
 ### Jump around this page
 
-[🧭 Start here](#start) · [🤝 Who does what](#who) · [🔐 What we protect](#protect) · [🎯 Goals](#goals) · [🗓️ Calendar](#calendar) · [🧪 What we test](#test) · [✅ Get involved](#involved) · [⚠️ Good to know](#good-to-know) · [🔗 Related links](#related) · [🗂️ Repo map](#repo-map) · [📬 Contact](#contact)
+[ Start here](#start) · [ Who does what](#who) · [What we protect](#protect) · [Goals](#goals) · [Calendar](#calendar) · [What we test](#test) · [Get involved](#involved) · [Good to know](#good-to-know) · [Related links](#related) · [Repo map](#repo-map) · [Contact](#contact)
 
 * * *
 
 <a id="start"></a>
 
-## 🧭 Start here: how to use this repo
+##  Start here: how to use this repo
 
 ### New? Follow these 5 steps
 
@@ -191,23 +191,23 @@ Six areas, each with starter test cases to tie to real features:
 
 | Page | What it is |
 |------|------------|
-| [⚖️ Ethics and rules](ETHICS-AND-RULES.md) | Rules of engagement and the authorisation record |
-| [🚀 Getting started](GETTING-STARTED.md) | Accounts, tools and prototype access |
-| [📌 Open items](OPEN-ITEMS.md) | Decisions still to confirm |
-| [🗓️ Week-by-week roadmap](roadmap/week-by-week.md) | Weeks 5 to 13 with deliverables |
-| [📘 The plan](plan/01-project-goal.md) | Seven sections: goal, assets, requirements, learning, resources, coordination, success |
-| [🧾 Templates](templates/vulnerability-register.md) | [Register](templates/vulnerability-register.md) · [Finding report](templates/finding-report.md) · [Test plan](templates/test-plan.md) · [Threat list](templates/threat-list.md) · [Security brief](templates/security-brief.md) · [Retest log](templates/retest-log.md) |
-| [✅ Checklists](checklists/requirements-checklist.md) | [Requirements](checklists/requirements-checklist.md) · [Before testing](checklists/pre-testing.md) · [Before the showcase](checklists/pre-showcase.md) |
-| [🧪 Test cases](test-cases/README.md) | [Access control](test-cases/access-control.md) · [Auth and sessions](test-cases/authentication-sessions.md) · [Input and output](test-cases/input-output.md) · [Business logic](test-cases/business-logic.md) · [Secrets and config](test-cases/secrets-dependencies-config.md) · [Audit logs](test-cases/audit-logs.md) |
+| [ Ethics and rules](ETHICS-AND-RULES.md) | Rules of engagement and the authorisation record |
+| [ Getting started](GETTING-STARTED.md) | Accounts, tools and prototype access |
+| [Open items](OPEN-ITEMS.md) | Decisions still to confirm |
+| [Week-by-week roadmap](roadmap/week-by-week.md) | Weeks 5 to 13 with deliverables |
+| [The plan](plan/01-project-goal.md) | Seven sections: goal, assets, requirements, learning, resources, coordination, success |
+| [Templates](templates/vulnerability-register.md) | [Register](templates/vulnerability-register.md) · [Finding report](templates/finding-report.md) · [Test plan](templates/test-plan.md) · [Threat list](templates/threat-list.md) · [Security brief](templates/security-brief.md) · [Retest log](templates/retest-log.md) |
+| [ Checklists](checklists/requirements-checklist.md) | [Requirements](checklists/requirements-checklist.md) · [Before testing](checklists/pre-testing.md) · [Before the showcase](checklists/pre-showcase.md) |
+| [Test cases](test-cases/README.md) | [Access control](test-cases/access-control.md) · [Auth and sessions](test-cases/authentication-sessions.md) · [Input and output](test-cases/input-output.md) · [Business logic](test-cases/business-logic.md) · [Secrets and config](test-cases/secrets-dependencies-config.md) · [Audit logs](test-cases/audit-logs.md) |
 | [🔍 Findings](findings/README.md) · [📄 Reports](reports/README.md) · [👥 Members](members/README.md) | Work in progress |
 
 ### Across GDG on Campus TUM
 
 | Link | What it is |
 |------|------------|
-| [🏠 GDG-TUM organization](https://github.com/GDG-TUM) | All chapter repositories |
-| [🔐 Cybersecurity Track](https://github.com/GDG-TUM/CYBERSECURITY-TRACK-GDG-on-Campus-TUM) · [site](https://gdg-tum.github.io/CYBERSECURITY-TRACK-GDG-on-Campus-TUM/) | The track this project belongs to |
-| [🤝 Cyber × Web project page](https://github.com/GDG-TUM/CYBERSECURITY-TRACK-GDG-on-Campus-TUM/blob/main/projects/cyber-x-web/README.md) | Project overview on the Cybersecurity track side |
+| [ GDG-TUM organization](https://github.com/GDG-TUM) | All chapter repositories |
+| [ Cybersecurity Track](https://github.com/GDG-TUM/CYBERSECURITY-TRACK-GDG-on-Campus-TUM) · [site](https://gdg-tum.github.io/CYBERSECURITY-TRACK-GDG-on-Campus-TUM/) | The track this project belongs to |
+| [ Cyber × Web project page](https://github.com/GDG-TUM/CYBERSECURITY-TRACK-GDG-on-Campus-TUM/blob/main/projects/cyber-x-web/README.md) | Project overview on the Cybersecurity track side |
 | [☁️ Cloud Track](https://github.com/GDG-TUM/Cloud-Track-GDG-on-Campus-TUM) · [site](https://gdg-tum.github.io/Cloud-Track-GDG-on-Campus-TUM/#/) | Cloud security checklist and deployment help |
 | [🗺️ member-roadmaps](https://github.com/GDG-TUM/member-roadmaps) | Share your personal plan with the chapter |
 | [📋 Chapter project board](https://github.com/orgs/GDG-TUM/projects) | Chapter-wide tasks and plans |
