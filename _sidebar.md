@@ -1,0 +1,38 @@
+- [🛡️ Home](README.md)
+- [🚀 Getting started](GETTING-STARTED.md)
+- [⚖️ Ethics and rules](ETHICS-AND-RULES.md)
+- [❓ FAQ](FAQ.md)
+- [📌 Open items](OPEN-ITEMS.md)
+- **📘 The plan**
+  - [1. Project goal](plan/01-project-goal.md)
+  - [2. What we protect](plan/02-assets-to-protect.md)
+  - [3. Security requirements](plan/03-security-requirements.md)
+  - [4. Learning priorities](plan/04-learning-priorities.md)
+  - [5. Starter resources](plan/05-starter-resources.md)
+  - [6. Coordination with Web](plan/06-coordination.md)
+  - [7. Definition of success](plan/07-definition-of-success.md)
+- **🗓️ Roadmap**
+  - [Week-by-week plan](roadmap/week-by-week.md)
+- **🧾 Templates**
+  - [Vulnerability register](templates/vulnerability-register.md)
+  - [Finding report](templates/finding-report.md)
+  - [Test plan](templates/test-plan.md)
+  - [Threat list](templates/threat-list.md)
+  - [Security brief](templates/security-brief.md)
+  - [Retest log](templates/retest-log.md)
+- **✅ Checklists**
+  - [Requirements checklist](checklists/requirements-checklist.md)
+  - [Before testing](checklists/pre-testing.md)
+  - [Before the showcase](checklists/pre-showcase.md)
+- **🧪 Test cases**
+  - [Overview](test-cases/README.md)
+  - [Access control](test-cases/access-control.md)
+  - [Authentication and sessions](test-cases/authentication-sessions.md)
+  - [Input and output handling](test-cases/input-output.md)
+  - [Financial business logic](test-cases/business-logic.md)
+  - [Secrets, dependencies, config](test-cases/secrets-dependencies-config.md)
+  - [Audit logs](test-cases/audit-logs.md)
+- **📂 Work in progress**
+  - [Findings](findings/README.md)
+  - [Reports](reports/README.md)
+  - [Members](members/README.md)
